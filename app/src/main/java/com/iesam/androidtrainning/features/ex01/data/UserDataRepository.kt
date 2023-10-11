@@ -1,10 +1,10 @@
-package com.iesam.androidtrainning.data
+package com.iesam.androidtrainning.features.ex01.data
 
 import com.iesam.androidtrainning.app.ErrorApp
-import com.iesam.androidtrainning.data.local.XmlLocalDataSource
-import com.iesam.androidtrainning.domain.SaveUserUseCase
-import com.iesam.androidtrainning.domain.User
-import com.iesam.androidtrainning.domain.UserRepository
+import com.iesam.androidtrainning.features.ex01.data.local.XmlLocalDataSource
+import com.iesam.androidtrainning.features.ex01.domain.SaveUserUseCase
+import com.iesam.androidtrainning.features.ex01.domain.User
+import com.iesam.androidtrainning.features.ex01.domain.UserRepository
 import com.iesam.kotlintrainning.Either
 
 class UserDataRepository(private val localDataSource: XmlLocalDataSource) : UserRepository {
