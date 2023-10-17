@@ -9,6 +9,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.iesam.androidtrainning.R
+import com.iesam.androidtrainning.app.ErrorApp
+import com.iesam.androidtrainning.app.extensions.hide
+import com.iesam.androidtrainning.app.extensions.visible
 import com.iesam.androidtrainning.databinding.ActivityEx01FormBinding
 import com.iesam.androidtrainning.features.ex01.data.UserDataRepository
 import com.iesam.androidtrainning.features.ex01.data.local.XmlLocalDataSource
@@ -67,11 +70,39 @@ class Ex01FormActivity : AppCompatActivity() {
     private fun setupObservers() {
         val observer = Observer<Ex01FormViewModel.UiState> {
             //Código al notificar el observador
+            if (it.isLoading) {
+                //Muestro el loading
+                showLoading()
+            } else {
+                //Oculto el loading
+                hideLoading()
+            }
+            it.errorApp?.let {
+                showError(it)
+            }
             it.user?.apply {
                 bindData(this)
             }
         }
         viewModel.uiState.observe(this, observer)
+    }
+
+    private fun showError(error: ErrorApp) {
+        binding.viewError.layoutError.visible()
+        binding.layoutForm.hide()
+        when (error) {
+            ErrorApp.UnknowError -> binding.viewError.messageError.text =
+                getString(R.string.label_unknown_error)
+        }
+    }
+
+    private fun showLoading() {
+        binding.skeletonLayout.showSkeleton()
+    }
+
+    private fun hideLoading() {
+        binding.skeletonLayout.showOriginal()
+        binding.layoutForm.visible()
     }
 
     private fun bindData(user: User) {

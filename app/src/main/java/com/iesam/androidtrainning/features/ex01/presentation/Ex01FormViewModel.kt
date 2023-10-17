@@ -9,6 +9,7 @@ import com.iesam.androidtrainning.features.ex01.domain.GetUserUseCase
 import com.iesam.androidtrainning.features.ex01.domain.SaveUserUseCase
 import com.iesam.androidtrainning.features.ex01.domain.User
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class Ex01FormViewModel(
@@ -26,17 +27,20 @@ class Ex01FormViewModel(
         )
     }
 
-    fun loadUser(){
+    fun loadUser() {
+        //Main Thread
+        _uiState.value = UiState(isLoading = true)
         viewModelScope.launch(Dispatchers.IO) {
+            delay(5000)
             getUserUseCase().fold(
                 { responseError(it) },
-                { responseGetUserSuccess(it) }
+                { responseError(ErrorApp.UnknowError) }
             )
         }
     }
 
     private fun responseError(errorApp: ErrorApp) {
-
+        _uiState.postValue(UiState(errorApp = errorApp, isLoading = false))
     }
 
     private fun responseSuccess(isOk: Boolean) {

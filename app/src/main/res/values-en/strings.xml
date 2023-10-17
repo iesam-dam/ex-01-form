@@ -3,6 +3,8 @@
     <string name="app_name">AndroidTrainning</string>
     <string name="label_name">Name</string>
     <string name="label_surname">Surname</string>
-    <string name="label_age">Edad</string>
+    <string name="label_age">age</string>
     <string name="action_save">Save</string>
+    <string name="action_ex01_form">Exercise 01: Form</string>
+    <string name="action_ex03_glide">Exercise 03: Glide</string>
 </resources>
